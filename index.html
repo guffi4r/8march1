@@ -1,228 +1,38 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Для моей любимой ❤️</title>
+<style>
+.heart{
+  position:fixed;
+  top:-10px;
+  color:red;
+  font-size:20px;
+  animation: fall linear forwards;
+}
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+@keyframes fall{
+  to{
+    transform: translateY(100vh);
+    opacity:0;
+  }
+}
+</style>
 
-    body {
-      min-height: 100vh;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #ffd6e7, #ffeef5, #ffd1dc);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
+<script>
+function createHeart(){
 
-    .card {
-      position: relative;
-      z-index: 2;
-      width: 90%;
-      max-width: 700px;
-      background: rgba(255,255,255,0.75);
-      backdrop-filter: blur(10px);
-      border-radius: 25px;
-      padding: 40px 25px;
-      text-align: center;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-      animation: fadeIn 1.4s ease;
-    }
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
 
-    .heart-top {
-      font-size: 64px;
-      animation: pulse 1.6s infinite;
-      margin-bottom: 10px;
-    }
+  heart.style.left = Math.random()*100 + "vw";
+  heart.style.fontSize = (10 + Math.random()*30) + "px";
+  heart.style.animationDuration = (3 + Math.random()*3) + "s";
 
-    h1 {
-      color: #e6005c;
-      font-size: 42px;
-      margin-bottom: 18px;
-    }
+  document.body.appendChild(heart);
 
-    .subtitle {
-      font-size: 20px;
-      color: #7a2145;
-      margin-bottom: 25px;
-    }
+  setTimeout(()=>{
+    heart.remove();
+  },6000)
 
-    .timer {
-      font-size: 28px;
-      color: #b0004f;
-      margin-bottom: 30px;
-      line-height: 1.6;
-      font-weight: bold;
-    }
+}
 
-    .love-btn {
-      border: none;
-      background: linear-gradient(45deg, #ff4f8b, #ff7aa8);
-      color: white;
-      font-size: 20px;
-      padding: 16px 28px;
-      border-radius: 999px;
-      cursor: pointer;
-      box-shadow: 0 10px 25px rgba(255, 79, 139, 0.35);
-      transition: 0.25s ease;
-    }
-
-    .love-btn:hover {
-      transform: scale(1.06);
-    }
-
-    .love-btn:active {
-      transform: scale(0.98);
-    }
-
-    .message {
-      margin-top: 24px;
-      font-size: 24px;
-      color: #d10057;
-      min-height: 60px;
-      font-weight: bold;
-      animation: fadeIn 0.4s ease;
-    }
-
-    .falling-heart {
-      position: absolute;
-      top: -20px;
-      font-size: 22px;
-      animation: fall linear forwards;
-      z-index: 1;
-      pointer-events: none;
-      opacity: 0.9;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.18); }
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes fall {
-      0% {
-        transform: translateY(-10px) rotate(0deg);
-        opacity: 0.95;
-      }
-      100% {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 30px;
-      }
-
-      .subtitle {
-        font-size: 17px;
-      }
-
-      .timer {
-        font-size: 22px;
-      }
-
-      .love-btn {
-        font-size: 18px;
-        padding: 14px 22px;
-      }
-
-      .message {
-        font-size: 20px;
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <div class="card">
-    <div class="heart-top">❤️</div>
-    <h1>С 8 марта, любимая моя</h1>
-    <div class="subtitle">Ты — самое прекрасное, что есть в моей жизни 💖</div>
-
-    <div class="timer" id="timer"></div>
-
-    <button class="love-btn" onclick="showLoveMessage()">Нажми сюда 💌</button>
-
-    <div class="message" id="message"></div>
-  </div>
-
-  <script>
-    // ВСТАВЬ СВОЮ ДАТУ НАЧАЛА ОТНОШЕНИЙ
-    const start = new Date("2024-02-10T00:00:00");
-
-    function updateTimer() {
-      const now = new Date();
-      const diff = now - start;
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(diff / (1000 * 60 * 60)) % 24;
-      const minutes = Math.floor(diff / (1000 * 60)) % 60;
-      const seconds = Math.floor(diff / 1000) % 60;
-
-      document.getElementById("timer").innerHTML =
-        `Мы вместе уже:<br>${days} дней ${hours} часов ${minutes} минут ${seconds} секунд ❤️`;
-    }
-
-    setInterval(updateTimer, 1000);
-    updateTimer();
-
-    const messages = [
-      "Я люблю тебя больше с каждым днём ❤️",
-      "Спасибо, что ты у меня есть 💖",
-      "Ты моё счастье и моя радость 🌸",
-      "С тобой каждый день особенный ✨",
-      "Ты самая любимая и самая лучшая 💘"
-    ];
-
-    function showLoveMessage() {
-      const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-      document.getElementById("message").innerHTML = randomMessage;
-
-      for (let i = 0; i < 12; i++) {
-        createHeart();
-      }
-    }
-
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.classList.add("falling-heart");
-      heart.innerHTML = Math.random() > 0.5 ? "💖" : "❤️";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.fontSize = (18 + Math.random() * 25) + "px";
-      heart.style.animationDuration = (3 + Math.random() * 3) + "s";
-
-      document.body.appendChild(heart);
-
-      setTimeout(() => {
-        heart.remove();
-      }, 6000);
-    }
-
-    setInterval(() => {
-      createHeart();
-    }, 700);
-  </script>
-
-</body>
-</html>
+setInterval(createHeart,300);
+</script>
